@@ -1,0 +1,122 @@
+#movies-page
+	position: relative
+
+	.single-movie
+		position: relative
+		margin-bottom: 30px
+
+		.rating
+			position: absolute
+			top: 5px
+			right: 5px
+			border-radius: 3px
+			z-index: 2
+			padding: 0 10px
+			line-height: 20px
+			display: inline-block
+			font-size: 15px
+			background: $active-hover
+			color: #333
+			font-weight: bold
+		
+		.poster
+			display: block
+
+			img
+				border-radius: 3px
+				display: block
+				min-height: 263px
+
+			&:after
+				position: absolute
+				top: 0
+				bottom: 0
+				left: 0
+				right: 0
+				content: ""
+				background: $header-main
+				opacity: 0
+				transition: opacity 250ms $ease-in-out-quad
+			
+			&:hover 
+				&:after
+					opacity: 0.6
+
+		.title
+			position: absolute
+			font-size: 14px
+			line-height: 20px
+			z-index: 2
+			bottom: 0
+			left: 0
+			right: 0
+			padding: 15px
+			text-align: center
+			background: linear-gradient(to top, $header-main, rgba(125, 35, 163, 0))
+
+			&:hover
+				color: $active-hover
+
+	.page-numbers
+		display: flex
+		justify-content: space-between
+
+		li
+			a
+				background: $header-main
+				padding: 5px 10px
+				transition: all 250ms $ease-in-out-quad
+				display: block
+
+				&:hover
+					background: $active-hover
+					color: $header-main
+
+	.loading-indicator
+		position: absolute
+		top: 0
+		bottom: 0
+		min-height: 40vw
+		left: 0
+		right: 0
+		z-index: 3
+		background: $body-background
+		transition: opacity 250ms $ease-in-out-quad
+
+	.loading-indicator.loaded
+		opacity: 0
+		z-index: -1
+
+
+.overlay 
+	position: fixed !important
+	position: absolute
+	background: rgba(255, 255, 255, 0.8)
+	width: 100%
+	height: 100%
+	top: 0px
+	left: 0px
+	display: block
+	z-index: 10004
+
+	.progress 
+		position: absolute
+		z-index: 10005
+		background: transparent
+		color: #000
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+
+		.loader 
+			border: 6px solid #f3f3f3
+			border-top: 6px solid #282828
+			border-radius: 50%;
+			width: 60px;
+			height: 60px;
+			animation: spin 2s linear infinite
+
+
+@keyframes spin
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }

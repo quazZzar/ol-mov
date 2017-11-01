@@ -1,0 +1,29 @@
+.main-header
+	background: $header-main
+	color: $default-text-color
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+
+	.logo
+		display: inline-block
+
+		img
+			max-height: 40px
+
+	.main-nav
+		ul 
+			display: flex
+		li
+			a
+				padding: 10px 20px
+				display: block
+
+				&:hover
+					color: $active-hover
+			
+			a.active
+				border-bottom: 3px inset $active-hover
+				padding-bottom: 7px;
+				color: $active-hover
+
+			
+		
