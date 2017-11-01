@@ -1,14 +1,14 @@
 <template>
 	<section id="movies-page">
-		<div class="overlay" style="/* display: none; */">
-			<div class="progress" style="top: 190.5px; left: 951.5px;">
+		<div class="overlay" :class="{ loaded: isLoaded }">
+			<div class="progress">
 				<div class="loader"></div>
 			</div>
 		</div>
 		<div class="container">
 			<div class="row">
 			<div v-for="movie in this.movies" class="col-6 col-sm-3 col-lg-2">
-				<div class="single-movie">
+				<div class="single-movie" :class="{ loaded: isLoadedMovies }">
 					<span class="rating">&#9733; {{ movie.rating ? movie.rating : 0}}</span>
 					<router-link class="poster" :to="{ path:'/movie/' + movie.imdbID + '/' + movie.slug }">
 						<img :src="'http://image.tmdb.org/t/p/w185' + movie.poster">
@@ -47,7 +47,8 @@
 					nr: null,
 					pages: []
 				},
-				loaded: false,
+				isLoaded: false,
+				isLoadedMovies: false,
 				show_movies: false
 			}
 		},
@@ -58,6 +59,8 @@
 				});
 			},
 			pagination(){
+				this.isLoaded = false;
+				this.isLoadedMovies = false;
 				this.totalPages.nr = Math.ceil( this.settings / this.ppp );
 
 				for( var i = 1; i <= this.totalPages.nr; i++ ) {
@@ -103,6 +106,10 @@
 			this.$http.get( 'https://the-cinemax.com/wp-json/jetpack/v4/modules/daolnepo/settings' ).then( ( response ) => {
 				this.settings = response.body.posts_available;
 				this.pagination();
+				this.isLoaded = true;
+				setTimeout( () => {
+					this.isLoadedMovies = true;
+				}, 1000);
 			})
 		}
 	}
