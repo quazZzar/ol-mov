@@ -18,7 +18,7 @@
 			</div>
 			</div>
 			<div class="pagination">
-				<ul class="page-numbers">
+				<ul class="page-numbers" :class="{ loaded: isLoadedMovies }">
 					<li v-if="totalPages.pages[totalPages.current - 2]">
 						<router-link :to="'/movies/page/' + totalPages.pages[totalPages.current - 2].url" class="prev">Prev</router-link>
 					</li>
@@ -103,14 +103,24 @@
 			}
 		},
 		created(){
-			this.$http.get( 'https://the-cinemax.com/wp-json/jetpack/v4/modules/daolnepo/settings' ).then( ( response ) => {
-				this.settings = response.body.posts_available;
+			if(this.settings == null){
+				this.$http.get( 'https://the-cinemax.com/wp-json/jetpack/v4/modules/daolnepo/settings' ).then( ( response ) => {
+					this.settings = response.body.posts_available;
+					this.pagination();
+					this.isLoaded = true;
+					setTimeout( () => {
+						this.isLoadedMovies = true;
+					}, 1000);
+					console.log('nui');
+				})
+			} else {
 				this.pagination();
 				this.isLoaded = true;
 				setTimeout( () => {
 					this.isLoadedMovies = true;
 				}, 1000);
-			})
+				console.log('este');
+			}
 		}
 	}
 </script>
